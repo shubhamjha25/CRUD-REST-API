@@ -1,16 +1,14 @@
-const { Router } = require('express');
-
 const router = require('express').Router();
+const auth = require('../middleware/auth');
+const blogsController = require('../controllers/blogsController');
 
 router.route('/')
-    .get((req, res) => {
-        res.json({msg: "Test Blogs"})
-    })
-    .post()
+    .get(auth, blogsController.getBlogs)
+    .post(auth, blogsController.createBlog)
 
 router.route('/:id')
-    .get()
-    .put()
-    .delete()
+    .get(auth, blogsController.getBlog)
+    .put(auth, blogsController.updateBlog)
+    .delete(auth, blogsController.deleteBlog)
 
 module.exports = router; 
